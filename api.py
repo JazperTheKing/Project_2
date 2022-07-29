@@ -12,3 +12,4 @@ print(data.keys())
 #def currency_exchange_rate():
    # "from Symbol": "EUR",
     #"3. To Symbol": "USD",
+      #to be continued...
