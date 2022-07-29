@@ -1,25 +1,56 @@
+# import requests, re, csv module, pathlib
 import requests
 from pathlib import Path
 import re, csv
 
-
+# check file path of current working directory
 print(Path.cwd())
 
 filepath = Path.cwd()/"csv_reports"/"cash-on-hand-usd.csv"
+# check if the new file path exists will return True since "cash-on-hand-usd.csv" exists in the filepath
 print(filepath.exists())
 print(filepath)
 
+### testing 1 ###
+# Open file using 'with' and 'open' keyword in 'read' mode
+# with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
+#     csv_reader = csv.reader(csv_file)
 
-with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
-    csv_reader = csv.reader(csv_file)
+#     next(csv_reader)
 
-    next(csv_reader)
+#     for line in csv_reader:
+#         print(line)
+#         if day 
+        
+#             print("[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
 
-    for line in csv_reader:
-        print(line)
-        #if 
+
+#         else:
+
+#             print("[CASH DEFICIT] DAY: {day} , AMOUNT: {amount}")
+
+
+########################################################################################
+
+
+#### testing 2 ###
+# def cash_on_hand(amount):
+#     with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
+#         csv_reader = csv.reader(csv_file)
+
+#         next(csv_reader)
+
+#     for line in csv_reader:
+#         print(line)
+#         if day amount
+
+#             return f"[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY"
+
+#         else:
+#             return f"[CASH DEFICIT] DAY: {day} , AMOUNT: {amount}"
+
+
+# print 
 
     
 
-print("[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
-print("[CASH DEFICIT] DAY: {} , AMOUNT: {}")
