@@ -19,4 +19,4 @@ with file_path.open(mode="r", encoding = "UTF-8", newline="") as file:
      for (i,v) in enumerate(row):
             columns[i].append(v)
 print(columns[4])
-   
+(not complete)
