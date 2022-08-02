@@ -2,22 +2,20 @@ import requests, re
 import datetime
 import json
 
-#wrting the function, from_symbol, and to_symbol to insert it into the api parameters to excess the forex (FX)
-function = 'FX_WEEKLY'
-from_symbol = 'USD'
-to_symbol = 'SGD'
+#wrting the function to insert it into the api parameters to excess the currency exchange rate
+function = 'CURRENCY_EXCHANGE_RATE'
+from_currency = 'USD'
+to_currency = 'SGD'
 #get the api_key to acess the api call
 api_key = 'TYRNR04ZRXIKTHMK'
 #get the base url
 base_url = 'https://www.alphavantage.co'
 #create the main url with the api parameters and keys
-main_url = base_url+'/query?function='+function+'&from_symbol='+from_symbol+'&to_symbol='+to_symbol+'&apikey='+api_key
+main_url = base_url+'/query?function='+function+'&from_currency='+from_currency+'&to_currency='+to_currency+'&apikey='+api_key
 #request and get the api link and convert it to an json
 response = requests.get(main_url).json()
-#select the data from time seriec fx (weekly) to narrow down what we need
-d = response["Time Series FX (Weekly)"]
-#find the most recent week using max() by using the dates as keys
-recentdate = max((x for x in d.keys()))
+
+for value in 
 
 print(recentdate)
 
