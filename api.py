@@ -1,25 +1,22 @@
 import requests, re
-import pathlib
+from pathlib import Path
 import json
 
-#wrting the function to insert it into the api parameters to excess the currency exchange rate
-function = 'CURRENCY_EXCHANGE_RATE'
+function = 'FX_WEEKLY'
 from_currency = 'USD'
 to_currency = 'SGD'
-#get the api_key to acess the api call
 api_key = 'TYRNR04ZRXIKTHMK'
-#get the base url
 base_url = 'https://www.alphavantage.co'
-#create the main url with the api parameters and keys
-main_url = base_url+'/query?function='+function+'&from_currency='+from_currency+'&to_currency='+to_currency+'&apikey='+api_key
-#request and get the api link and convert it to an json
+main_url = base_url+'/query?function='+function+'&from_symbol='+from_currency+'&to_symbol='+to_currency+'&apikey='+api_key
 response = requests.get(main_url).json()
+d = response["Time Series FX (Weekly)"]
+recentdate = max((x for x in d.keys()))
+print(recentdate)
+number1 = float(d[recentdate]["2. high"])
+number2 = float(d[recentdate]["3. low"])
+mean = (number1+number2)/2
+print(mean)
 
-print(response)
-for value in response:
-    function = float(response[value]["5. Exchange Rate"])
-    fromcurrency = response[value]["1. From_Currency Code"]
-    tocurrency = response[value]["3. To_Currency Code"]
-
-file_path = Path.cwd()/"group_project"
-
+file_path = Path.cwd()/"project_group"/"main.py"
+with file_path.open(mode="w", encoding="UTF-8", newline="") as file:
+    file.write("[MEAN WEEKLY CLOSING FOREX PRICE]" " " f"{from_currency} = {to_currency}{mean}")
