@@ -1,5 +1,5 @@
 import requests, re
-import datetime
+import pathlib
 import json
 
 #wrting the function to insert it into the api parameters to excess the currency exchange rate
@@ -15,14 +15,11 @@ main_url = base_url+'/query?function='+function+'&from_currency='+from_currency+
 #request and get the api link and convert it to an json
 response = requests.get(main_url).json()
 
-for value in 
+print(response)
+for value in response:
+    function = float(response[value]["5. Exchange Rate"])
+    fromcurrency = response[value]["1. From_Currency Code"]
+    tocurrency = response[value]["3. To_Currency Code"]
 
-print(recentdate)
+file_path = Path.cwd()/"group_project"
 
-#find the highest number in the week and convert it to a float 
-number1 = float(d[recentdate]["2. high"])
-#find the lowest number in the week and convert it to a float 
-number2 = float(d[recentdate]["3. low"])
-#calcualting the mean by combinding the 2 numbers and dividing it
-mean = (number1+number2)/2
-print(mean)
