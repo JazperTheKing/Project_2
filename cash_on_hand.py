@@ -3,8 +3,6 @@ import requests
 from pathlib import Path
 import re, csv
 
-
-
 # check file path of current working directory
 print(Path.cwd())
 
@@ -18,28 +16,16 @@ print(filepath)
 with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
     csv_reader = csv.reader(csv_file)
     next(csv_reader)
+    def solve(csv_reader):
+        if csv_reader[1,1] <= csv_reader[0,1]:
+            return "[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY"
 
-    amount = []
-
-    #     if list[i] < list[i +1]:
-    #         csv_file = True
-        
-    #     else:
-    #         csv_file = False
-    
-    # if csv_file == True:
-    #     print("[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
-
-    # else: 
-    #     print("[CASH DEFICIT] DAY: , AMOUNT:")
+        for i in range(len(csv_reader)):
+            if i - 1 >= 0:
+                if csv_reader[i] == csv_reader[i-1]:
+                    return "[CASH DEFICIT] DAY: , AMOUNT:"
 
 
+print(solve(csv_reader))
 
 
-    # max_value = max(row[0] for row in csv.reader(csv_file))
-    # #print("[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
-    # print(max_value)
-    
-    # min_value = min(row[0] for row in csv.reader(csv_file))
-    # #print(f"[CASH DEFICIT] DAY: , AMOUNT:")
-    # print(min_value)
