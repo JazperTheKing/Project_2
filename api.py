@@ -9,7 +9,7 @@ api_key = 'TYRNR04ZRXIKTHMK'
 base_url = 'https://www.alphavantage.co'
 main_url = base_url+'/query?function='+function+'&from_currency='+from_currency+'&to_currency='+to_currency+'&apikey='+api_key
 response = requests.get(main_url).json()
-print(response)
+
 for item in response:
     rate = float(response[item]["5. Exchange Rate"])
     fcurrency = response[item]["1. From_Currency Code"]
