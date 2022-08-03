@@ -1,4 +1,3 @@
-from unicodedata import category
 import requests
 from pathlib import Path
 import re, csv
