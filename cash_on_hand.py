@@ -1,6 +1,4 @@
 # import requests, re, csv module, pathlib
-from ast import operator
-from tkinter.tix import INCREASING
 import requests
 from pathlib import Path
 import re, csv
