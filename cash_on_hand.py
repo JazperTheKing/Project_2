@@ -1,47 +1,38 @@
-# import requests, re, csv module, pathlib
-import requests
+import csv
 from pathlib import Path
-import re, csv
+#from api_test import function
 
-# check file path of current working directory
-print(Path.cwd())
+fp_read = Path.cwd()/"csv_reports"/"cash-on-hand-usd.csv"
+fp_write = Path.cwd()/"summary_report.txt"
 
-filepath = Path.cwd()/"csv_reports"/"cash-on-hand-usd.csv"
-# check if the new file path exists will return True since "cash-on-hand-usd.csv" exists in the filepath
-print(filepath.exists())
-print(filepath)  
+coh_empty_list = []
+days_empty_list = []
+amt_empty_list = []
+diff_empty_list = []
 
+def cash_on_hand(forex):
+    with fp_read.open(mode= "r", encoding= "UTF-8") as file:
+        coh_reader = csv.reader(file)
+        next(coh_reader)
 
-with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
-    csv_reader = csv.reader(csv_file)
-    next(csv_reader)
-    category = []
-    cash_on_hand = []
-    coh_change = []
+        for line in coh_reader:
+            coh_empty_list.append(line)
+            day = line[0]
+            amt = line[1]
+            days_empty_list.append(int(day))
+            amt_empty_list.append(amt)
 
-    for i in range (1, len(cash_on_hand)):
-        coh_change.append(cash_on_hand[i] - cash_on_hand[i-1])
-        print(coh_change)
+        for items in range(1, len(amt_empty_list)):
+            diff = float(amt_empty_list[items]) - float(amt_empty_list[items-1])
+            diff_empty_list.append(diff)
+            for sublist in diff_empty_list:
+                usd_to_sgd = sublist * forex
 
-
-
-
-
-
-# Open file using 'with' and 'open' keyword in 'read' mode
-# with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
-#     csv_reader = csv.reader(csv_file)
-#     next(csv_reader)
-#     def solve(csv_reader):
-#         if csv_reader[1,1] <= csv_reader[0,1]:
-#             return "[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY"
-
-#         for i in range(len(csv_reader)):
-#             if i - 1 >= 0:
-#                 if csv_reader[i] == csv_reader[i-1]:
-#                     return "[CASH DEFICIT] DAY: , AMOUNT:"
-
-
-# print(solve(csv_reader))
-
+    with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
+        for category in zip(days_empty_list, diff_empty_list):
+            if category[1] <= 0:
+                file.write("\n[CASH DEFICIT]" " "f"DAY: {category[0]+1}, AMOUNT: SGD{usd_to_sgd}")
+            else:
+                file.write("\n[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
+print(cash_on_hand(forex=1.38025))
 
