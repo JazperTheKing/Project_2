@@ -1,56 +1,48 @@
-# import requests, re, csv module, pathlib
-import requests
+import csv, re
 from pathlib import Path
-import re
-import csv
+ 
 
-# check file path of current working directory
-print(Path.cwd())
+#from api_test import function
 
-filepath = Path.cwd()/"csv_reports"/"cash-on-hand-usd.csv"
-# check if the new file path exists will return True since "cash-on-hand-usd.csv" exists in the filepath
-print(filepath.exists())
-print(filepath)  
+fp_read = Path.cwd()/"csv_reports"/"cash-on-hand-usd.csv"
+fp_write = Path.cwd()/"summary_report.txt"
+fp_get = Path.cwd()/"api.py"
 
-with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
-    csv_reader = csv.reader(csv_file)
-    next(csv_reader)
-    day = []
-    cash_on_hand = []
-    coh_change = []
+coh_empty_list = []
+days_empty_list = []
+amt_empty_list = []
+diff_empty_list = []
+api_list = []
 
-    for row in csv_reader:
-        day.append(row[0])
+def cash_on_hand(forex):
+    with fp_read.open(mode= "r", encoding= "UTF-8") as file:
+        coh_reader = csv.reader(file)
+        next(coh_reader)
 
-    for i in range (1, len(cash_on_hand)):
-        coh_change.append(cash_on_hand[i] - cash_on_hand[i-1])
-        #coh_change = ("Cash On Hand")-("Cash On Hand").shift(1)
-        max_coh_change = max(coh_change)
-        max_coh_day = str(day[coh_change.index(max(coh_change))])
-    
-    print(f"[CASH DEFICIT] DAY: {max_coh_day} AMOUNT {max_coh_change}")
+        for line in coh_reader:
+            coh_empty_list.append(line)
+            day = line[0]
+            amt = line[1]
+            days_empty_list.append(int(day))
+            amt_empty_list.append(amt)
 
-    
+    with fp_get.open(mode= "r", encoding= "UTF-8") as file:
+        api_get = file.read()
+        api_list.append(api_get)
 
-# "[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY"
-# return "[CASH DEFICIT] DAY: , AMOUNT:"
+        for info in enumerate(api_list):
+            forex = re.search(pattern= "function", float=info)
+        
+        for items in range(1, len(amt_empty_list)):
+            diff = float(amt_empty_list[items]) - float(amt_empty_list[items-1])
+            diff_empty_list.append(diff)
+            for sublist in diff_empty_list:
+                usd_to_sgd = sublist * forex
 
-
-# def coh_function():
-#     with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
-#         csv_reader = csv.reader(csv_file)
-#         next(csv_reader)
-#         category = []
-#         cash_on_hand = []
-#         coh_change = []
-
-#     for i in range (1, len(cash_on_hand)):
-#         #coh_change.append(cash_on_hand[i] - cash_on_hand[i-1])
-#         coh_change = ["Cash On Hand"]-["Cash On Hand"].shift(1)
-
-
-#     file_path = Path.cwd()/"summary_report.txt"
-#     with file_path.open(mode="w", encoding="UTF-8", newline="") as file:
-#          file.write(coh_change)
-
-# print(coh_function())
+    with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
+        for category in zip(days_empty_list, diff_empty_list):
+            if category[1] <= 0:
+                file.write("\n[CASH DEFICIT]" " "f"DAY: {category[0]+1}, AMOUNT: SGD{usd_to_sgd}")
+            else:
+                file.write("\n[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
+print(cash_on_hand(forex))
