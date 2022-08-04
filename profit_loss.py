@@ -3,7 +3,7 @@ import re, csv
 
 print(Path.cwd())
 
-file_path = Path.cwd()/"csv_reports"/"profit-and-loss-usd .csv"
+file_path = Path.cwd()/"csv_reports"/"profit-and-loss-usd.csv"
 print(file_path.exists())
 print(file_path)
 
