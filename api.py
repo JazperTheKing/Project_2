@@ -12,11 +12,11 @@ def api_function():
     response = requests.get(main_url).json()
 
     for item in response:
-        rate = float(response[item]["5. Exchange Rate"])
-        fcurrency = response[item]["1. From_Currency Code"]
-        tcurrency = response[item]["3. To_Currency Code"]
+        function = float(response[item]["5. Exchange Rate"])
+        from_currency = response[item]["1. From_Currency Code"]
+        to_currency = response[item]["3. To_Currency Code"]
 
 
     file_path = Path.cwd()/"project_group"/"summary_report.txt"
     with file_path.open(mode="w", encoding="UTF-8", newline="") as file:
-        file.write("[REAL TIME CURRENCY CONVERSION RATE]" " " f"{fcurrency}1 = {tcurrency}{rate}")
+        file.write("[REAL TIME CURRENCY CONVERSION RATE]" " " f"{from_currency}1 = {to_currency}{function}")
