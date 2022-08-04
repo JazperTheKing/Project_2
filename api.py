@@ -17,6 +17,7 @@ def api_function():
         to_currency = response[item]["3. To_Currency Code"]
 
 
-    file_path = Path.cwd()/"project_group"/"summary_report.txt"
+    file_path = Path.cwd()/"summary_report.txt"
     with file_path.open(mode="w", encoding="UTF-8", newline="") as file:
         file.write("[REAL TIME CURRENCY CONVERSION RATE]" " " f"{from_currency}1 = {to_currency}{function}")
+
