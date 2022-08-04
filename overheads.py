@@ -1,7 +1,9 @@
 # import modules
-from audioop import maxpp
+
 import csv, re
 from pathlib import Path
+
+
 
 # check file path of current working directory
 print(Path.cwd())
@@ -10,7 +12,7 @@ print(Path.cwd())
 
 # Start of a function
 def overheads():
-    fp_write = Path.cwd()/"summay_report.txt"
+    fp_write = Path.cwd()/"summary_report.txt"
     fp_get = Path.cwd()/"api.py"
     fp_read = Path.cwd()/"csv_reports"/"overheads-day-42.csv"
     # Checking if a file/directory exists with Pathlib
@@ -38,7 +40,7 @@ def overheads():
             amt_empty_list.append(amt)
 
     # Open file using 'with' and 'open' keyword in 'read' mode
-    with fp_get.open(mode= "r", encoding= "UTF-8") as file:
+    with fp_write.open(mode= "r", encoding= "UTF-8") as file:
         api_get = file.read()
         api_list.append(api_get)
 
@@ -54,16 +56,13 @@ def overheads():
             if max < amt_list[items]:
                 max = amt_list[items]
             usd_to_sgd = max * forex
-        
-       
-            # for cat, items in enumerate(overheads_empty_list):
-            #     cat_list = re.findall(pattern=str(max), string=items)
-            #     print(cat_list)
+
+            max_value_cat = overheads_empty_list.index(str(max))
+
+
         
     #Open file using 'with' and 'open' keyword in 'append' mode
-    with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
-        for category in zip(cat_empty_list, amt_list):
-            file.write("\n[HIGHEST OVERHEADS] " " "f"CATEGORY: {category[0]}, AMOUNT: SGD{usd_to_sgd}")
-            
+        with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
+            file.write("\n[HIGHEST OVERHEADS] " " "f"CATEGORY: {max_value_cat}, AMOUNT: SGD{usd_to_sgd}")
+                
 print(overheads())
-
