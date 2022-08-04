@@ -1,5 +1,7 @@
+# import modules
 import api, cash_on_hand, overheads, profit_loss
 
+# Start of function
 def main():
 
     forex = api.api_function()
