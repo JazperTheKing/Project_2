@@ -32,7 +32,7 @@ def profit_and_loss():
     summary_get = file.read()
     exchange_rate.append(summary_get)
    
-    # 
+     # using for loop with enumerate to in the empty list
     for info, content in enumerate(exchange_rate):
       forex = re.search(pattern= "SGD.+\d", string=content)
       forex = forex.group()
@@ -45,7 +45,7 @@ def profit_and_loss():
         diff_empty_list.append(diff)
         usd_to_sgd = diff_empty_list[-1] * forex
     
-    # open "summary_report.txt" file using 'with' and 'open' keyword in 'read' mode to export the 
+    # open "summary_report.txt" file using 'with' and 'open' keyword in 'read' mode 
     with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
       for category in zip(days_empty_list, diff_empty_list):
         if category[1] <= 0:
