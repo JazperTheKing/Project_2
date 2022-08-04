@@ -1,17 +1,14 @@
 import csv, re
 from pathlib import Path
- 
-#from api_test import function
 
 def cash_on_hand():
     fp_read = Path.cwd()/"csv_reports"/"cash-on-hand-usd.csv"
     fp_write = Path.cwd()/"summary_report.txt"
-    fp_get = Path.cwd()/"api.py"
     coh_empty_list = []
     days_empty_list = []
     amt_empty_list = []
     diff_empty_list = []
-    api_list = []
+    exchange_rate = []
 
 
     with fp_read.open(mode= "r", encoding= "UTF-8") as file:
@@ -27,10 +24,10 @@ def cash_on_hand():
 
 
     with fp_write.open(mode= "r", encoding= "UTF-8") as file:
-        api_get = file.read()
-        api_list.append(api_get)
+        summary_get = file.read()
+        exchange_rate.append(summary_get)
 
-        for info, content in enumerate(api_list):
+        for info, content in enumerate(exchange_rate):
             forex = re.search(pattern= "SGD.+\d", string=content)
             forex = forex.group()
             if forex is None:
