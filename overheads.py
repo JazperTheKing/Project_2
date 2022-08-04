@@ -1,3 +1,4 @@
+import requests
 from pathlib import Path
 import csv
 
@@ -15,7 +16,5 @@ with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
     category = 0
     next(csv_reader)
     for row in csv_reader:
-
-        max_overheads = max(row[0] for row in csv.reader(csv_file))
-        print(f'[HIGHEST OVERHEADS] {", ".join(row)}')
-        
+       max_overheads = max(row[0] for row in csv.reader(csv_file))
+       print(f'[HIGHEST OVERHEADS] {", ".join(row)}')
