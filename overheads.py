@@ -53,18 +53,5 @@ def overheads(forex):
         for category in zip(cat_empty_list, amt_empty_list):
             file.write("\n[HIGHEST OVERHEADS] " " "f"DAY: {category[0]+1}, AMOUNT: SGD{usd_to_sgd}")
             
-print(overheads(forex))
+    print(overheads(forex))
 
-
-# # start of a function
-# def overhead_function():
-#     # Open file using 'with' and 'open' keyword in 'read' mode
-#     with fp_read.open('r', encoding = 'UTF-8', newline = '') as csv_file:
-#         csv_reader = csv.reader(csv_file, delimiter=";")
-#         category = 0
-#         #
-#         next(csv_reader)
-#     for row in csv_reader:
-#             max_overheads = max(row[0] for row in csv.reader(csv_file))
-#             print(f'[HIGHEST OVERHEADS] {", ".join(row)}')
-# print(overhead_function())
