@@ -45,11 +45,12 @@ def profit_and_loss():
         diff_empty_list.append(diff)
         usd_to_sgd = diff_empty_list[-1] * forex
     
-    # open "summary_report.txt" file using 'with' and 'open' keyword in 'read' mode 
+    # open "summary_report.txt" file using 'with' and 'open' keyword in 'append' mode 
     with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
       for category in zip(days_empty_list, diff_empty_list):
         if category[1] <= 0:
           file.write("\n[NET PROFIT DEFICIT]" " "f"DAY: {category[0]}, AMOUNT: SGD{category[1]*forex}")
+          # else if the category is more than 0, it will print this
         else:
           file.write("\n[NET PROFIT SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
 
