@@ -6,8 +6,9 @@ import csv, re
 # check file path of current working directory
 print(Path.cwd())
 
-fp_get = Path.cwd()/"api.py"
+#from api_test import function
 fp_write = Path.cwd()/"summary_report.txt"
+fp_get = Path.cwd()/"api.py"
 fp_read = Path.cwd()/"csv_reports"/"overheads-day-42.csv"
 # Checking if a file/directory exists with Pathlib
 # Returns: True if a file/directory exists, False if a file/directory does not exit
@@ -25,6 +26,7 @@ def overheads(forex):
     # Open file using 'with' and 'open' keyword in 'read' mode
     with fp_read.open(mode= "r", encoding= "UTF-8") as file:
         oh_reader = csv.reader(file)
+        # Use of next to skip first header row in csv file
         next(oh_reader)
 
     for line in oh_reader:
