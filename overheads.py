@@ -25,6 +25,16 @@ def overheads():
     amt_empty_list = []
     max_empty_list = []
     api_list = []
+    
+        # Open file using 'with' and 'open' keyword in 'read' mode
+    with fp_write.open(mode= "r", encoding= "UTF-8") as file:
+        api_get = file.read()
+        api_list.append(api_get)
+
+        for info, content in enumerate(api_list):
+            forex = re.search(pattern= "SGD.+\d", string=content)
+            forex = forex.group()
+            forex = float(forex[3:10])
 
     # Open file using 'with' and 'open' keyword in 'read' mode
     with fp_read.open(mode= "r", encoding= "UTF-8") as file:
@@ -39,30 +49,18 @@ def overheads():
             cat_empty_list.append(cat)
             amt_empty_list.append(amt)
 
-    # Open file using 'with' and 'open' keyword in 'read' mode
-    with fp_write.open(mode= "r", encoding= "UTF-8") as file:
-        api_get = file.read()
-        api_list.append(api_get)
-
-        for info, content in enumerate(api_list):
-            forex = re.search(pattern= "SGD.+\d", string=content)
-            forex = forex.group()
-            forex = float(forex[3:10])
+        oh_cat = []
+        oh_usd = []    
+        for sublist in overheads_empty_list:
+            oh_cat.append(sublist[0])
+            oh_usd.append(float(sublist[1]))
         
-        amt_list = [ int(item) for item in amt_empty_list]
-        max = amt_list[0]
-        
-        for items in range(0, len(amt_list), 1):
-            if max < amt_list[items]:
-                max = amt_list[items]
-            usd_to_sgd = max * forex
-
-            max_value_cat = overheads_empty_list.index(str(max))
-
-
+        max_value = max(oh_usd)
+        max_value_cat = oh_usd.index(max_value)
+        usd_to_sgd = max_value * forex
         
     #Open file using 'with' and 'open' keyword in 'append' mode
         with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
-            file.write("\n[HIGHEST OVERHEADS] " " "f"CATEGORY: {max_value_cat}, AMOUNT: SGD{usd_to_sgd}")
+            file.write("\n[HIGHEST OVERHEADS] " " "f"CATEGORY: {oh_cat[max_value_cat]}, AMOUNT: SGD{usd_to_sgd}")
                 
 print(overheads())
