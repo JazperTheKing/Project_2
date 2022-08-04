@@ -9,7 +9,7 @@ print(Path.cwd())
 
 # Start of a function
 def overheads():
-    fp_write = Path.cwd()/"summary_report.txt"
+    fp_write = Path.cwd()/"summay_report.txt"
     fp_get = Path.cwd()/"api.py"
     fp_read = Path.cwd()/"csv_reports"/"overheads-day-42.csv"
     # Checking if a file/directory exists with Pathlib
@@ -43,16 +43,19 @@ def overheads():
 
         for info, content in enumerate(api_list):
             forex = re.search(pattern= "SGD.+\d", string=content)
+            forex = forex.group()
+            forex = float(forex[3:10])
         
         for items in range(len(amt_empty_list)):
-            max = float(max(amt_empty_list))
+            max = max.float(amt_empty_list)
             max_empty_list.append(max)
             usd_to_sgd = max_empty_list[-1] * forex
             
     # Open file using 'with' and 'open' keyword in 'append' mode
     with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
         for category in zip(cat_empty_list, amt_empty_list):
-            file.write("\n[HIGHEST OVERHEADS] " " "f"DAY: {category[0]}, AMOUNT: SGD{category[1]*forex}")
-               
+            file.write("\n[HIGHEST OVERHEADS] " " "f"CATEGORY: {category[0]}, AMOUNT: SGD{category[1]*forex}")
+            
+
 print(overheads())
 
