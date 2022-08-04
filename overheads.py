@@ -21,9 +21,8 @@ def overheads():
 
     #Create a list
     overheads_empty_list = []
-    cat_empty_list = []
-    amt_empty_list = []
-    max_empty_list = []
+    oh_cat = []
+    oh_usd = []
     api_list = []
     
         # Open file using 'with' and 'open' keyword in 'read' mode
@@ -41,22 +40,22 @@ def overheads():
         oh_reader = csv.reader(file)
         # Use of next to skip first header row in csv file
         next(oh_reader)
-
+       
         for line in oh_reader:
+            # append to empty list
             overheads_empty_list.append(line)
-            cat = line[0]
-            amt = line[1]
-            cat_empty_list.append(cat)
-            amt_empty_list.append(amt)
-
-        oh_cat = []
-        oh_usd = []    
-        for sublist in overheads_empty_list:
-            oh_cat.append(sublist[0])
-            oh_usd.append(float(sublist[1]))
+            # for loop
+            for sublist in overheads_empty_list:
+                # sublist[0] is catergory column
+                oh_cat.append(sublist[0])
+                # sublist[1] is overhead column
+                oh_usd.append(float(sublist[1]))
         
+        # creating variable for max value
         max_value = max(oh_usd)
+        # creating variable for max value category
         max_value_cat = oh_usd.index(max_value)
+        # converting max value from USD to SGD
         usd_to_sgd = max_value * forex
         
     #Open file using 'with' and 'open' keyword in 'append' mode
