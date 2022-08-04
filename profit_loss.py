@@ -37,12 +37,15 @@ def profit_and_loss():
       forex = re.search(pattern= "SGD.+\d", string=content)
       forex = forex.group()
       forex = float(forex[3:10])
-            
+      
+      # compute the net profit difference between each day and append the differences into 'diff_empty_list'
+      # before converting the usd values to sgd values
       for items in range(len(net_profit_empty_list)):
         diff = float(net_profit_empty_list[items]) - float(net_profit_empty_list[items-1])
         diff_empty_list.append(diff)
         usd_to_sgd = diff_empty_list[-1] * forex
-                    
+    
+    # open "summary_report.txt" file using 'with' and 'open' keyword in 'read' mode to export the 
     with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
       for category in zip(days_empty_list, diff_empty_list):
         if category[1] <= 0:
