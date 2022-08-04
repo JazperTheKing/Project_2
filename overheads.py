@@ -1,4 +1,5 @@
 # import modules
+from audioop import maxpp
 import csv, re
 from pathlib import Path
 
@@ -43,18 +44,25 @@ def overheads():
 
         for info, content in enumerate(api_list):
             forex = re.search(pattern= "SGD.+\d", string=content)
-            #forex = forex.group()
-            #forex = float(forex[3:10])
+            forex = forex.group()
+            forex = float(forex[3:10])
         
-            for items in range(len(amt_empty_list)):
-                max = max(float(amt_empty_list[items]))
-                max_empty_list.append(max)
-                usd_to_sgd = max_empty_list[-1] * forex
-            
-    # Open file using 'with' and 'open' keyword in 'append' mode
+        amt_list = [ int(item) for item in amt_empty_list]
+        max = amt_list[0]
+        
+        for items in range(0, len(amt_list), 1):
+            if max < amt_list[items]:
+                max = amt_list[items]
+            usd_to_sgd = max * forex
+        
+       
+            # for cat, items in enumerate(overheads_empty_list):
+            #     cat_list = re.findall(pattern=str(max), string=items)
+            #     print(cat_list)
+        
+    #Open file using 'with' and 'open' keyword in 'append' mode
     with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
-        for category in zip(cat_empty_list, amt_empty_list):
-            file.write("\n[HIGHEST OVERHEADS] " " "f"CATEGORY: {category[0]}, AMOUNT: SGD{category[1]*forex}")
+        for category in zip(cat_empty_list, amt_list):
+            file.write("\n[HIGHEST OVERHEADS] " " "f"CATEGORY: {category[0]}, AMOUNT: SGD{usd_to_sgd}")
             
-
 print(overheads())
