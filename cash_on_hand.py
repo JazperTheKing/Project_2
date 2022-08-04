@@ -14,7 +14,7 @@ amt_empty_list = []
 diff_empty_list = []
 api_list = []
 
-def cash_on_hand(forex):
+def cash_on_hand():
     with fp_read.open(mode= "r", encoding= "UTF-8") as file:
         coh_reader = csv.reader(file)
         next(coh_reader)
@@ -45,4 +45,4 @@ def cash_on_hand(forex):
                 file.write("\n[CASH DEFICIT]" " "f"DAY: {category[0]+1}, AMOUNT: SGD{usd_to_sgd}")
             else:
                 file.write("\n[CASH SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
-print(cash_on_hand(forex))
+print(cash_on_hand())
