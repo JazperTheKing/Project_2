@@ -1,7 +1,7 @@
 # import modules
 import requests
 from pathlib import Path
-import csv, re
+import csv, re, api
 
 # check file path of current working directory
 print(Path.cwd())
@@ -21,7 +21,7 @@ max_empty_list = []
 api_list = []
 
 # Start of a function
-def overheads(forex):
+def overheads():
     # Open file using 'with' and 'open' keyword in 'read' mode
     with fp_read.open(mode= "r", encoding= "UTF-8") as file:
         coh_reader = csv.reader(file)
@@ -51,7 +51,7 @@ def overheads(forex):
         for category in zip(cat_empty_list, amt_empty_list):
             file.write("\n[HIGHEST OVERHEADS]" " "f"DAY: {category[0]+1}, AMOUNT: SGD{usd_to_sgd}")
             
-print(overheads(forex))
+print(overheads())
 
 
 # # start of a function
