@@ -10,6 +10,7 @@ filepath = Path.cwd()/"csv_reports"/"overheads-day-42.csv"
 print(filepath.exists())
 print(filepath)  
 
+#define overhead function
 def overhead_function():
 
     # Open file using 'with' and 'open' keyword in 'read' mode
@@ -17,7 +18,7 @@ def overhead_function():
         csv_reader = csv.reader(csv_file, delimiter=";")
         category = 0
         next(csv_reader)
-    for row in csv_reader:
-            max_overheads = max(row[0] for row in csv.reader(csv_file))
-            print(f'[HIGHEST OVERHEADS] {", ".join(row)}')
+        for row in csv_reader:
+                max_overheads = max(row[0] for row in csv.reader(csv_file))
+                print(f'[HIGHEST OVERHEADS] {", ".join(row)}')
 print(overhead_function())
