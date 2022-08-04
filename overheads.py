@@ -1,6 +1,5 @@
-from unicodedata import category
 from pathlib import Path
-import re, csv
+import csv
 
 # check file path of current working directory
 print(Path.cwd())
@@ -19,3 +18,4 @@ with filepath.open('r', encoding = 'UTF-8', newline = '') as csv_file:
 
         max_overheads = max(row[0] for row in csv.reader(csv_file))
         print(f'[HIGHEST OVERHEADS] {", ".join(row)}')
+        
