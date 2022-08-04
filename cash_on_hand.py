@@ -33,6 +33,9 @@ def cash_on_hand():
         for info, content in enumerate(api_list):
             forex = re.search(pattern= "SGD.+\d", string=content)
             forex = forex.group()
+            if forex is None:
+                return None
+            
             forex = float(forex[3:10])
             
             for items in range(len(amt_empty_list)):
