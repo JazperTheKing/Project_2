@@ -1,40 +1,30 @@
-
-# check file path of current working directory
-# import modules
+import csv, re
 from pathlib import Path
-import re, csv
 
-# check file path of current working directory
-print(Path.cwd())
+def profit_and_loss():
+    fp_read = Path.cwd()/"csv_reports"/"profit-and-loss-usd.csv"
+    fp_write = Path.cwd()/"summary_report.txt"
+    fp_get = Path.cwd()/"api.py"
+    pnl_empty_list = []
+    days_empty_list = []
+    net_profit_empty_list = []
+    diff_empty_list = []
+    api_list = []
 
-#from api_test import function
-fp_get = Path.cwd()/"api.py"
-fp_write = Path.cwd()/"summary_report.txt"
-fp_read = Path.cwd()/"csv_reports"/"profit-and-loss-usd.csv"
-# Checking if a file/directory exists with Pathlib
-# Returns: True if a file/directory exists, False if a file/directory does not exit
-print(fp_read.exists())
 
-# Start of a function
-def profit_loss():
-  # Open file using 'with' and 'open' keyword in 'read' mode
-  with fp_read.open(mode="r", encoding = "UTF-8", newline="") as file:
-    reader = csv.reader(file)
-    # Use of next to skip first header row in csv file
-    next(file)
+    with fp_read.open(mode= "r", encoding= "UTF-8") as file:
+        pnl_reader = csv.reader(file)
+        next(pnl_reader)
 
-    # Create lists
-    net_profit= []
-    day = []
-    net_profit_diff = []
-    for line in reader:
-      day.append(int(line[0]))
-      net_profit.append(int(line[4]))
-      print(net_profit)
+        for line in pnl_reader:
+            pnl_empty_list.append(line)
+            day = line[0]
+            net_profit = line[4]
+            days_empty_list.append(int(day))
+            net_profit_empty_list.append(net_profit)
 
-      api_list = []
-       # Open file using 'with' and 'open' keyword in 'read' mode
-      with fp_write.open(mode= "r", encoding= "UTF-8") as file:
+
+    with fp_write.open(mode= "r", encoding= "UTF-8") as file:
         api_get = file.read()
         api_list.append(api_get)
 
@@ -42,20 +32,17 @@ def profit_loss():
             forex = re.search(pattern= "SGD.+\d", string=content)
             forex = forex.group()
             forex = float(forex[3:10])
+            
+            for items in range(len(net_profit_empty_list)):
+                diff = float(net_profit_empty_list[items]) - float(net_profit_empty_list[items-1])
+                diff_empty_list.append(diff)
+                usd_to_sgd = diff_empty_list[-1] * forex
+                    
+        with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:    
+            for category in zip(days_empty_list, diff_empty_list):
+                if category[1] <= 0:
+                    file.write("\n[NET PROFIT DEFICIT]" " "f"DAY: {category[0]}, AMOUNT: SGD{category[1]*forex}")
+                else:
+                    file.write("\n[NET PROFIT SURPLUS] CASH ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
 
-        for i in range(len(net_profit)):
-          
-          net_profit_diff.append(float(net_profit[i]) - float(net_profit[i-1]))
-          print(net_profit_diff[-1])
-          for sublist in net_profit_diff:
-                usd_to_sgd = sublist * forex
-
-      # Open file using 'with' and 'open' keyword in 'append' mode
-      with fp_write.open(mode= "a", encoding= "UTF-8", newline= "") as file:
-        for category in zip(day, net_profit_diff):
-            if category[1] <= 0:
-              file.write("\n[PROFIT DEFICIT]" " "f"DAY: {category[0]}, AMOUNT: SGD{usd_to_sgd}")
-            else:
-                file.write("\n[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THAN THE PREVIOUS DAY")
-
-print(profit_loss())
+print(profit_and_loss())
