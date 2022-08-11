@@ -26,3 +26,4 @@ def api_function():
     with file_path.open(mode="w", encoding="UTF-8", newline="") as file:
         file.write("[REAL TIME CURRENCY CONVERSION RATE]" " " f"{from_currency}1 = {to_currency}{function}")
 
+print(api_function())
